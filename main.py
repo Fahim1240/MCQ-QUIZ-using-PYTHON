@@ -213,3 +213,63 @@ def quiz_game():
         if choice == "1":
             name = ask_name()
             score = 0
+
+            questions = get_random_questions()
+
+            for i, question_data in enumerate(questions, 1):
+                question = question_data["question"]
+                choices = question_data["choices"]
+                correct_answer = question_data["correct_answer"]
+
+                print(f"\nQuestion {i}:")
+                user_choice = display_question(question, choices)
+
+                if check_answer(user_choice, correct_answer):
+                    print("Correct!")
+                    score += 1
+                else:
+                    print("Incorrect!")
+                    score -= 0.25
+
+            # Ensure the score is not negative
+            score = max(0, score)
+
+            print(f"\n{name}, your final score is: {score:.2f} out of {len(questions)}")
+
+            if score == 0:
+                print("You need to study more. Try again after studying!")
+            elif score <= 4:
+                print("Try harder next time!")
+
+            high_scores = get_high_score()
+            if name not in high_scores or score > high_scores[name]:
+                update_high_score(name, score)
+                print("Congratulations! You've set a new high score!")
+            else:
+                print(f"Your current high score is: {high_scores[name]:.2f}")
+
+        elif choice == "2":
+            high_scores = get_high_score()
+            if high_scores:
+                print("\nHigh Scores:")
+                for name, score in high_scores.items():
+                    print(f"{name}: {score:.2f}")
+            else:
+                print("\nNo high scores available yet.")
+
+        elif choice == "3":
+            print("\nRules:")
+            print("Welcome to the MCQ quiz. Here you will be given 10 questions, and each question gives 1 point.")
+            print("You will lose 0.25 points for each wrong answer.")
+            print("Try to get the highest score.")
+
+        elif choice == "4":
+            print("Goodbye!")
+            break
+
+        else:
+            print("Invalid choice. Please select a valid option.")
+
+
+if __name__ == "__main__":
+    quiz_game()
