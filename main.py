@@ -200,3 +200,16 @@ def get_random_questions():
     random.shuffle(questions)
     return questions[:10]
 
+def quiz_game():
+    print("Welcome to the Quiz Game!")
+    while True:
+        print("\nOptions:")
+        print("1. Start")
+        print("2. High Score")
+        print("3. Rules")
+        print("4. Exit")
+        choice = input("Enter the number of your choice: ")
+
+        if choice == "1":
+            name = ask_name()
+            score = 0
