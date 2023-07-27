@@ -20,3 +20,15 @@ def check_answer(user_choice, correct_answer):
 def update_high_score(name, score):
     with open("high_scores.txt", "a") as file:
         file.write(f"{name}: {score}\n")
+
+def get_high_score():
+    high_scores = {}
+    try:
+        with open("high_scores.txt", "r") as file:
+            for line in file:
+                name, score = line.strip().split(": ")
+                high_scores[name] = float(score)
+    except FileNotFoundError:
+        pass
+    return high_scores
+
